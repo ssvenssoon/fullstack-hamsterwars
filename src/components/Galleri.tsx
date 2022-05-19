@@ -19,9 +19,13 @@ const Galleri = () => {
     }
     return (
       <div >
+        <div className='hamster-container'>
             {hamsters.map((hamster) => (
-              <img src={fixImgSrcPath(hamster.imgName)}  />
+              <li className='hamster-list-items' key={hamster.id}>
+                <img className='hamsters-img' src={fixImgSrcPath(hamster.imgName)}  />
+              </li>
             ))}
+        </div>
         {/* <li key={hamsters.id} >
           <img
             src={fixImgSrcPath(hamsters.imgName)}

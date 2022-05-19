@@ -40,3 +40,20 @@
 button {
   font-size: calc(10px + 2vmin);
 }
+
+.hamster-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.hamster-list-items {
+  list-style: none;
+}
+
+.hamsters-img {
+  width: 200px;
+  height: 200px;
+}
