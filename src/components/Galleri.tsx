@@ -6,6 +6,49 @@ import AtomHamster from '../Atoms/AtomHamster'
 
 
 const Galleri = () => {
+    const [name, setName] = useState<string>('')
+    const [food, setFood] = useState<string>('')
+    const [loves, setLoves] = useState<string>('')
+    const [age, setAge] = useState<string>('')
+    const [games, setGames] = useState<string>('')
+    const [wins, setWins] = useState<string>('')
+    const [defeats, setDefeats] = useState<string>('')
+    const [imgName, setImgName] = useState<string>('')
+
+
+    let addedHamster = {
+      name: name,
+      favFood: food,
+      loves: loves,
+      age: Number(age),
+      games: Number(games),
+      wins: Number(wins),
+      defeats: Number(defeats),
+      imgName: imgName,
+    }
+
+    function urlIsImg(url: string) {
+      return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url)
+    }
+    
+    const isNameValid = addedHamster.name.length > 1
+    const isFoodValid = addedHamster.favFood !== ''
+    const isLovesValid = addedHamster.loves !== ''
+    const isAgeValid = addedHamster.age >= 0 && age !== ''
+    const isGamesValid = addedHamster.games >= 0 && games !== ''
+    const isWinsValid = addedHamster.wins >= 0 && wins !== ''
+    const isDefeatsValid = addedHamster.defeats >= 0 && defeats !== ''
+    const isImgNameValid = urlIsImg(addedHamster.imgName) && imgName.startsWith('http')
+    const formIsValid =
+    isNameValid &&
+    isFoodValid &&
+    isLovesValid &&
+    isAgeValid &&
+    isGamesValid &&
+    isWinsValid &&
+    isDefeatsValid &&
+    isImgNameValid
+    
 
     const hamsters = useRecoilValue<Hamster[]>(AtomHamster)
     
@@ -17,39 +60,170 @@ const Galleri = () => {
         return fixUrl(`/img/${image}`)
       }
     }
+
+    function submitHandler() {
+      console.log('startar')
+      fetch(fixUrl('/hamsters'), {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(addedHamster)
+      })
+    }
+    
     return (
       <div >
         <div className='hamster-container'>
             {hamsters.map((hamster) => (
               <li className='hamster-list-items' key={hamster.id}>
+                <h3 className='hamster-name'>{hamster.name}</h3>
                 <img className='hamsters-img' src={fixImgSrcPath(hamster.imgName)}  />
               </li>
             ))}
         </div>
-        {/* <li key={hamsters.id} >
-          <img
-            src={fixImgSrcPath(hamsters.imgName)}
-          />
-          <section>
-            <h3>{hamsters.name}</h3>
-          </section>
-            <div>
-              <header>
-                <h5>{hamsters.name}</h5>
-              </header>
-              <section>
-                <p>
-                  Jag är {hamsters.age} år gammal och min favorit mat är{' '}
-                  {hamsters.favFood}.
-                </p>
-                <p>
-                  I mitt liv har jag gått {hamsters.games} matcher, av dessa har
-                  jag vunnit {hamsters.wins} och förlorat {hamsters.defeats} antal
-                  matcher.
-                </p>
-              </section>
-            </div>
-        </li> */}
+        <h2 className='add-hamster-header'>Add new hamster</h2>
+        <div className='form-container'>
+          <form className='form-input-grid'>  
+            <label>   
+              <h5>Namn</h5>
+                {!isNameValid ? (
+                  <p className="form-validation-err">
+                    Vänligen fyll i ett namn
+                  </p>
+                ) : null}
+              <input
+                name="name"
+                type="text"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+                placeholder="Ex Kurt"
+                required
+              />
+            </label> 
+            <label>
+              <h5>Favoritmat</h5>
+                {!isFoodValid ? (
+                  <p className="form-validation-err">
+                    Vänligen fyll i favoritmat
+                  </p>
+                ) : null}
+              <input
+                name="food"
+                type="text"
+                value={food}
+                onChange={(event) => setFood(event.target.value)}
+                placeholder="Ex pizza"
+                required
+              />
+            </label>  
+            <label>
+              <h5>Favoritaktivitet</h5>
+                {!isLovesValid ? (
+                  <p className="form-validation-err">
+                    Vänligen fyll i aktivitet
+                  </p>
+                ) : null}
+              <input
+                name="loves"
+                type="text"
+                value={loves}
+                onChange={(event) => setLoves(event.target.value)}
+                placeholder="Hoppa etc.."
+                required
+              />
+            </label>  
+            <label>
+              <h5>Ålder</h5>
+                {!isAgeValid ? (
+                  <p className="form-validation-err">
+                    Vänligen fyll i ålder
+                  </p>
+                ) : null} 
+              <input
+                name="age"
+                type="text"
+                value={age}
+                onChange={(event) => setAge(event.target.value)}
+                placeholder="Ex 4"
+                required
+              />
+            </label> 
+            <label> 
+              <h5>Antal matcher</h5>
+                {!isGamesValid ? (
+                  <p className="form-validation-err">
+                    Vänligen fyll i matcher
+                  </p>
+                ) : null} 
+              <input
+                name="games"
+                type="text"
+                value={games}
+                onChange={(event) => setGames(event.target.value)}
+                placeholder="Ex 5"
+                required
+              />
+            </label>  
+            <label>
+              <h5>Antal vinster</h5>
+                {!isWinsValid ? (
+                  <p className="form-validation-err">
+                    Vänligen fyll i vinster
+                  </p>
+                ) : null} 
+              <input
+                name="wins"
+                type="text"
+                value={wins}
+                onChange={(event) => setWins(event.target.value)}
+                placeholder="Ex 7"
+                required
+              />
+            </label>
+            <label>
+              <h5>Antal förluster</h5>
+                {!isDefeatsValid ? (
+                  <p className="form-validation-err">
+                    Vänligen fyll i förluster
+                  </p>
+                ) : null} 
+              <input
+                name="defeats"
+                type="text"
+                value={defeats}
+                onChange={(event) => setDefeats(event.target.value)}
+                placeholder="Ex 4"
+                required
+              />
+            </label>
+            <label>
+              <h5>Fyll i en bildlänk</h5>
+                {!isImgNameValid ? (
+                  <p className="form-validation-err">
+                    Vänligen fyll i bildlänk
+                  </p>
+                ) : null} 
+              <input
+                name="imgName"
+                type="text"
+                value={imgName}
+                onChange={(event) => setImgName(event.target.value)}
+                placeholder="https://www.abcdef.com/hamster-27.png..."
+                required
+              />
+            </label>  
+          </form>
+        </div>
+          <button
+            className='add-button'
+            disabled={!formIsValid}
+            onClick={submitHandler}
+            type='submit'
+          >
+            Lägg till hamster
+          </button>
       </div>
     )
  }

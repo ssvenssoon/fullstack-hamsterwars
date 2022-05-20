@@ -16,6 +16,8 @@ const staticFolder = path.join(__dirname, '/../backend/dist/')
 
 const staticImages = path.join(__dirname, '/public/img/')
 
+console.log(staticImages);
+
 // Middleware
 // CORS öppnar vårt projekt så det kan användas från andra domäner
 app.use(cors())

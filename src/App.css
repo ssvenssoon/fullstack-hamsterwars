@@ -42,6 +42,7 @@ button {
 }
 
 .hamster-container {
+  margin-top: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,4 +57,43 @@ button {
 .hamsters-img {
   width: 200px;
   height: 200px;
+}
+
+.hamster-name {
+  font-style: italic;
+  margin: 10px 0;
+}
+
+.add-hamster-header {
+  margin-top: 30px ;
+}
+
+.add-hamster-input {
+  /* margin: 20px 0; */
+  margin-bottom: 30px;
+}
+
+.form-container {
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-input-grid {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+}
+
+.add-button {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+.form-validation-err {
+  font-size: 13px;
+  color: red;
 }
