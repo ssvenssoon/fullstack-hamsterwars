@@ -14,6 +14,16 @@ const Galleri = () => {
     const [wins, setWins] = useState<string>('')
     const [defeats, setDefeats] = useState<string>('')
     const [imgName, setImgName] = useState<string>('')
+    const [enableInfo, setEnableInfo] = useState<boolean>(false)
+    const [info, setInfo] = useState([])
+
+    const openInfo = () => {
+      setEnableInfo(true)
+    }
+
+    const closeInfo = () => {
+      setEnableInfo(false)
+    }
 
 
     let addedHamster = {
@@ -73,11 +83,63 @@ const Galleri = () => {
       })
     }
     
+    const handleClick = (name: any, age: any, loves: any, wins: any, defeats: any, id: any) => {
+      
+      let hamsterInfo = {
+        hamsterName: name,
+        hamsterAge: age,
+        hamsterLoves: loves,
+        hamsterWins: wins,
+        hamsterDefeats: defeats,
+        hamsterId: id,
+      }
+      setInfo(hamsterInfo)
+      
+      // console.log(hamsterInfo);
+      
+      // console.log(name, age, loves, wins, defeats);
+    }
+    
+    const deleteHamster = (id: any) => {
+      fetch(fixUrl(`/hamsters/${id}`), {
+        method: 'DELETE',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
+      })
+      setEnableInfo(false)
+    }
+    
     return (
       <div >
-        <div className='hamster-container'>
+        <div className={enableInfo ? 'info-container' : 'closed-info-container'}>
+          <button
+           className='close-info'
+           onClick={closeInfo}
+           >
+             x
+          </button>
+          <p className='info-text'>Hej! Jag heter {info.hamsterName}.</p>
+          <p className='info-text'>Jag är {info.hamsterAge} år gammal</p>
+          <p className='info-text'>Jag gillar att {info.hamsterLoves}</p>
+          <p className='info-text'>Jag har vunnit {info.hamsterWins} gånger</p>
+          <p className='info-text'>Jag har förlorat {info.hamsterDefeats} gånger</p>
+          <button
+            className='close-info'
+            onClick={() => deleteHamster(info.hamsterId)}
+            >
+              Delete me
+          </button>
+        </div>
+        <div className='hamster-container' onClick={openInfo}>
             {hamsters.map((hamster) => (
-              <li className='hamster-list-items' key={hamster.id}>
+              <li
+                className='hamster-list-items'
+                id={hamster.id}
+                onClick={() => 
+                  handleClick(hamster.name, hamster.age, hamster.loves, hamster.wins, hamster.defeats, hamster.id)} 
+                key={hamster.id}>
                 <h3 className='hamster-name'>{hamster.name}</h3>
                 <img className='hamsters-img' src={fixImgSrcPath(hamster.imgName)}  />
               </li>

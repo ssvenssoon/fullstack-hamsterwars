@@ -97,3 +97,25 @@ button {
   font-size: 13px;
   color: red;
 }
+
+.closed-info-container {
+  display: none;
+}
+
+.info-container {
+  min-width: 100px;
+  min-height: 100px;
+  background: #111;
+  color: #fff;
+  z-index: 1000;
+  position: fixed;
+  top: 400px;
+  right: 700px;
+}
+
+.info-text {
+  margin: 10px 20px;
+}
+.close-info {
+  font-size: 16px;
+}
