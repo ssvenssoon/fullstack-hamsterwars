@@ -13,15 +13,15 @@ function App() {
 
   const [hamsters, setHamsters] = useRecoilState<Hamster[]>(AtomHamster)
 
-    useEffect(() => {
-      fetch("https://hamsterwars-firebase.herokuapp.com/hamsters")
-        .then((res) => res.json())
-        .then(
-          (result) => {
-            setHamsters(result)
-          }
-        )
-    }, [])
+    // useEffect(() => {
+    //   fetch("https://hamsterwars-firebase.herokuapp.com/hamsters")
+    //     .then((res) => res.json())
+    //     .then(
+    //       (result) => {
+    //         setHamsters(result)
+    //       }
+    //     )
+    // }, [])
 
   return (
     <div className="App">

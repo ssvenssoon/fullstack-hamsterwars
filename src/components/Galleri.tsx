@@ -95,9 +95,9 @@ const Galleri = () => {
       }
       setInfo(hamsterInfo)
       
-      // console.log(hamsterInfo);
+      console.log(hamsterInfo);
       
-      // console.log(name, age, loves, wins, defeats);
+      console.log(name, age, loves, wins, defeats);
     }
     
     const deleteHamster = (id: any) => {

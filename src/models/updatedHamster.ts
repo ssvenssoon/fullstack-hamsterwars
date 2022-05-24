@@ -1,4 +1,4 @@
-export interface Hamster {
+export interface UpdatedHamster {
     loves: string
     age: string
     games: string
@@ -7,5 +7,4 @@ export interface Hamster {
     wins: string
     imgName: string
     name: string
-    id: string
 }
