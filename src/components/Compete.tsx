@@ -1,8 +1,5 @@
 import { useState, useEffect } from "react"
-import hamster from "../hamsters/hamster-1.jpg"
-import { useRecoilValue } from 'recoil'
 import { Hamster } from '../models/Hamster'
-import AtomHamster from '../Atoms/AtomHamster'
 import { UpdatedHamster } from "../models/updatedHamster"
 import { fixUrl } from '../utils'
 
@@ -20,8 +17,7 @@ const Compete = () => {
 
   
   useEffect(() => { 
-    if (firstHamster || secondHamster) {
-      
+    if (firstHamster || secondHamster) {      
       setEnableCompeteArea(false)
     } else {
       setEnableCompeteArea(true)
@@ -182,21 +178,21 @@ const Compete = () => {
     setEnableFirstInfo(false)
     setEnableSecondInfo(false)
 
-     console.log('fifht req');   
-      fetch(fixUrl(`/hamsters/random`))
-      .then((res) =>  res.json())
-        .then(
-          ( result) => {
-            setFirstHamster(result)
+    fetch(fixUrl(`/hamsters/random`))
+    .then((res) =>  res.json())
+    .then(
+      (result) => {
+          setFirstHamster(result)
+          console.log(result);   
           }
         )
 
-      console.log('sixth req');
-      fetch(fixUrl(`/hamsters/random`))
+        fetch(fixUrl(`/hamsters/random`))
         .then((res) => res.json())
         .then(
           (result) => {
             setSecondHamster(result)
+            console.log(result);
           }
         )
   }
@@ -208,9 +204,8 @@ const Compete = () => {
     return (
       <div>
             <div className={enableFirstWinner || enableSecondWinner ? 'not-clickable' : 'clickable'}>
-              <img style={{width: '100px', height: '100px'}} src={hamster} alt="" />
               <h1>Vote for cutest hamster</h1>
-              <button disabled={enableFirstWinner || enableSecondWinner} onClick={getBothHamsters} style={{fontSize: '16px'}}>Fight!!</button>
+              <button disabled={enableFirstWinner || enableSecondWinner} onClick={getBothHamsters} className='fight-button'>Fight!!</button>
               { firstHamster  && secondHamster && (
               <div className={enableCompeteArea ? 'compete-area' : 'closed-compete-area'}>
                 <div onClick={firstHamsterInfo}  className="hamsters">
@@ -234,9 +229,11 @@ const Compete = () => {
                 >
                 x
               </button>
-              <h3>Vinnare!!!</h3>
-              <h4>Du röstade på {firstWinner.name}!</h4>
-              <h4>{firstWinner.name} har:</h4>
+              <h3 className="header">Vinnare!!!</h3>
+              <h4 className="header">Du röstade på {firstWinner.name}!</h4>
+              <p className="info-text">Jag är {firstWinner.age} år gammal</p>
+              <p className="info-text">och jag gillar att {firstWinner.loves}</p>
+              <h4 className="header">Mina stats:</h4>
               <p className='info-text'>{firstWinner.games} matcher spelade</p>
               <p className='info-text'>{firstWinner.wins} matcher vunna </p>
               <p className='info-text'>{firstWinner.defeats} matcher förlorade</p>
@@ -252,9 +249,11 @@ const Compete = () => {
               >
                 x
               </button>
-              <h3>Vinnare!!!</h3>
-              <h4>Du röstade på {secondWinner.name}!</h4>
-              <h4>{secondWinner.name} har:</h4>
+              <h3 className="header">Vinnare!!!</h3>
+              <h4 className="header">Du röstade på {secondWinner.name}!</h4>
+              <p className="info-text">Jag är {secondWinner.age} år gammal</p>
+              <p className="info-text">och jag gillar att {secondWinner.loves}</p>
+              <h4 className="header">Mina stats:</h4>
               <p className='info-text'>{secondWinner.games} matcher spelade</p>
               <p className='info-text'>{secondWinner.wins} matcher vunna </p>
               <p className='info-text'>{secondWinner.defeats} matcher förlorade</p>

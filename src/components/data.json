@@ -5,9 +5,9 @@
       "favFood":"ostbollar",
       "loves":"springa i hamsterhjulet",
       "imgName":"hamster-1.jpg",
-      "wins":0,
+      "wins":1,
       "defeats":0,
-      "games":0
+      "games":1
    },
    {
       "name":"Sven",
@@ -15,9 +15,9 @@
       "favFood":"morot",
       "loves":"springa i hamsterhjulet",
       "imgName":"hamster-2.jpg",
-      "wins":0,
+      "wins":1,
       "defeats":0,
-      "games":0
+      "games":1
    },
    {
       "name":"Ayla",
@@ -25,7 +25,7 @@
       "favFood":"majs",
       "loves":"äta",
       "imgName":"hamster-3.jpg",
-      "wins":0,
+      "wins":1,
       "defeats":0,
       "games":0
    },

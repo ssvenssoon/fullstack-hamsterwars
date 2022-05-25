@@ -37,6 +37,27 @@
   }
 }
 
+nav {
+  width: 100%;
+  height: 70px;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.nav-link {
+  list-style: none;
+  text-decoration: none;
+  color: #fff;
+}
+
+.nav-link:hover {
+  opacity: 0.7;
+}
+
 button {
   font-size: calc(10px + 2vmin);
 }
@@ -51,6 +72,7 @@ button {
 }
 
 .hamster-list-items {
+  cursor: pointer;
   list-style: none;
 }
 
@@ -103,21 +125,34 @@ button {
 }
 
 .info-container {
-  min-width: 100px;
-  min-height: 100px;
+  min-width: 200px;
+  min-height: 200px;
   background: #111;
   color: #fff;
   z-index: 1000;
   position: fixed;
-  top: 400px;
-  right: 700px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.header {
+  margin: 10px;
 }
 
 .info-text {
-  margin: 10px 20px;
+  margin: 0px 10px 10px 10px;
 }
+
 .close-info {
   font-size: 16px;
+  background: #111;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  width: 20%;
+  border-radius: 5px;
 }
 
 .compete-area {
@@ -133,17 +168,7 @@ button {
 }
 
 .first-winner {
-  background: rgb(8, 198, 5);
-  color: #111;
-  z-index: 1000;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.second-winner {
-  min-width: 100px;
+  min-width: 280px;
   min-height: 100px;
   background: rgb(8, 198, 5);
   color: #111;
@@ -152,6 +177,20 @@ button {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  border-radius: 20px;
+}
+
+.second-winner {
+  min-width: 280px;
+  min-height: 100px;
+  background: rgb(8, 198, 5);
+  color: #111;
+  z-index: 1000;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
 }
 
 .hamsters {
@@ -165,4 +204,41 @@ button {
   position: absolute;
   width: 100%;
   height: 100%;
+}
+
+.fight-button {
+  font-size: 18px;
+  background: #ffad33;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 20px;
+  font-style: italic;
+}
+
+.hamsters {
+  cursor: pointer;
+}
+
+.hamster-front-page {
+  min-width: 300px;
+  font-size: 16px;
+  font-style: italic;
+  color: #ffd700;
+  border-radius: 20px;
+  background-color: #111;
+}
+
+.website-explanation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+}
+
+.start-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }

@@ -4,18 +4,29 @@ import { Hamster } from '../models/Hamster'
 import { fixUrl } from '../utils'
 import AtomHamster from '../Atoms/AtomHamster'
 
+interface InfoObject {
+  hamsterName: string;
+  hamsterAge: string;
+  hamsterLoves: string;
+  hamsterWins: string;
+  hamsterDefeats: string;
+  hamsterId: string;
+}
+
 
 const Galleri = () => {
-    const [name, setName] = useState<string>('')
-    const [food, setFood] = useState<string>('')
-    const [loves, setLoves] = useState<string>('')
-    const [age, setAge] = useState<string>('')
-    const [games, setGames] = useState<string>('')
-    const [wins, setWins] = useState<string>('')
-    const [defeats, setDefeats] = useState<string>('')
-    const [imgName, setImgName] = useState<string>('')
-    const [enableInfo, setEnableInfo] = useState<boolean>(false)
-    const [info, setInfo] = useState([])
+  const [name, setName] = useState<string>('')
+  const [food, setFood] = useState<string>('')
+  const [loves, setLoves] = useState<string>('')
+  const [age, setAge] = useState<string>('')
+  const [games, setGames] = useState<string>('')
+  const [wins, setWins] = useState<string>('')
+  const [defeats, setDefeats] = useState<string>('')
+  const [imgName, setImgName] = useState<string>('')
+  const [enableInfo, setEnableInfo] = useState<boolean>(false)
+  const [info, setInfo] = useState<InfoObject | null>(null)
+  const hamsters = useRecoilValue(AtomHamster)
+  
 
     const openInfo = () => {
       setEnableInfo(true)
@@ -59,8 +70,6 @@ const Galleri = () => {
     isDefeatsValid &&
     isImgNameValid
     
-
-    const hamsters = useRecoilValue<Hamster[]>(AtomHamster)
     
   
     function fixImgSrcPath(image: string) {
@@ -85,7 +94,7 @@ const Galleri = () => {
     
     const handleClick = (name: any, age: any, loves: any, wins: any, defeats: any, id: any) => {
       
-      let hamsterInfo = {
+      let hamsterInfo: InfoObject = {
         hamsterName: name,
         hamsterAge: age,
         hamsterLoves: loves,
@@ -113,6 +122,7 @@ const Galleri = () => {
     
     return (
       <div >
+        { info && (
         <div className={enableInfo ? 'info-container' : 'closed-info-container'}>
           <button
            className='close-info'
@@ -129,21 +139,26 @@ const Galleri = () => {
             className='close-info'
             onClick={() => deleteHamster(info.hamsterId)}
             >
-              Delete me
+               Delete me
           </button>
         </div>
+        )}
         <div className='hamster-container' onClick={openInfo}>
-            {hamsters.map((hamster) => (
+          {hamsters ? (
+            hamsters.map((hamster) => (
               <li
                 className='hamster-list-items'
                 id={hamster.id}
                 onClick={() => 
                   handleClick(hamster.name, hamster.age, hamster.loves, hamster.wins, hamster.defeats, hamster.id)} 
-                key={hamster.id}>
+                  key={hamster.name}>
                 <h3 className='hamster-name'>{hamster.name}</h3>
                 <img className='hamsters-img' src={fixImgSrcPath(hamster.imgName)}  />
               </li>
-            ))}
+            ))
+            ) : (
+              <div>Vänligen vänta tills hamstrarna har hämtats</div>
+            )}
         </div>
         <h2 className='add-hamster-header'>Add new hamster</h2>
         <div className='form-container'>

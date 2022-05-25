@@ -5,30 +5,46 @@ import { Link, Routes, Route } from 'react-router-dom'
 import Start from './components/Start'
 import Galleri from './components/Galleri'
 import Compete from './components/Compete'
+import Data from '../src/components/data.json'
 import { useRecoilState } from 'recoil'
 import { Hamster } from './models/Hamster'
 import AtomHamster from './Atoms/AtomHamster'
+import { fixUrl } from './utils'
+
 
 function App() {
 
-  const [hamsters, setHamsters] = useRecoilState<Hamster[]>(AtomHamster)
+  // const [hamsters, setHamsters] = useRecoilState(AtomHamster)
+  // const [error, setError] = useState<any>(null)
+  // const [haveStarted, setHaveStarted] = useState<boolean>(false)
 
-    // useEffect(() => {
-    //   fetch("https://hamsterwars-firebase.herokuapp.com/hamsters")
-    //     .then((res) => res.json())
-    //     .then(
-    //       (result) => {
-    //         setHamsters(result)
-    //       }
-    //     )
-    // }, [])
+  // const getData: () => Promise<void> = async () => {
+  //   fetch(fixUrl(`/hamsters`))
+  //     .then((res) => res.json())
+  //     .then(
+  //       (result) => {
+  //         setError(null)
+  //         setHamsters(result)
+  //       },
+  //       (error) => {
+  //         setError(error)
+  //       }
+  //     )
+  //   setHaveStarted(true)
+  // }
+  
+
+  // useEffect(() => {
+  //   getData()
+  // }, [haveStarted])
+    
 
   return (
     <div className="App">
       <nav>
-        <Link to="/"> Startsida </Link>
-        <Link to="/compete"> Compete </Link>
-        <Link to="/galleri"> Galleri </Link>
+        <Link className='nav-link' to="/"> Startsida </Link>
+        <Link className='nav-link' to="/compete"> Compete </Link>
+        <Link className='nav-link' to="/galleri"> Galleri </Link>
       </nav>
       <main>
         <Routes>

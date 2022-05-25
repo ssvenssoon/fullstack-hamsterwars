@@ -22,6 +22,7 @@ router.get("/", async (req, res) => {
     hamsters.push({ ...docSnapshot.data(), id: docSnapshot.id });
   });
 
+  console.log(hamsters);
   res.send(hamsters);
 });
 
