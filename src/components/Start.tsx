@@ -15,7 +15,11 @@ interface TemporaryObject {
   defeats: string;
 }
 
-const Start = () => {
+interface Props {
+  error: any
+}
+
+const Start = (props: Props) => {
   const [hamsters, setHamsters] = useRecoilState(AtomHamster)
   const [bestHamster, setBestHamster] = useState<TemporaryObject | null>(null)
   const [haveStarted, setHaveStarted] = useState<boolean>(false)
@@ -87,8 +91,23 @@ const Start = () => {
           </p>
         </div>
         { haveStarted 
-           ? <button onClick={closeLeadingHamster} className='front-page-btn'>Close leading hamster</button>
-           : <button onClick={getLeadingHamster} className='front-page-btn'>Load leading hamster</button>
+            ? <button
+                onClick={closeLeadingHamster}
+                className={props.error === null ? 'front-page-btn' : 'closed-btns'}>
+                  Stäng sötaste hamstern
+              </button>
+
+            : <button
+                onClick={getLeadingHamster}
+                className={props.error === null ? 'front-page-btn' : 'closed-btns'}>
+                  Ladda sötaste hamstern
+              </button>
+        }
+        {props.error !== null &&
+        <div>
+          <p>Tyvärr kunde vi inte hämta den sötaste hamstern.</p>
+          <button className='front-page-btn' onClick={getLeadingHamster}>Försök igen</button>
+        </div>
         }
         <div className='hamster-container'>
           {bestHamster && haveStarted &&

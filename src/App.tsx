@@ -48,7 +48,7 @@ function App() {
       </nav>
       <main>
         <Routes>
-          <Route path='/' element={<Start />}></Route>
+          <Route path='/' element={<Start error={error}/>} ></Route>
           <Route path='/compete' element={<Compete />}></Route>
           <Route path='/galleri' element={<Galleri />}></Route>
         </Routes>
