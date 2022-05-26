@@ -13,31 +13,31 @@ import { fixUrl } from './utils'
 
 
 function App() {
+  
+  const [hamsters, setHamsters] = useRecoilState(AtomHamster)
+  const [error, setError] = useState<any>(null)
+  const [haveStarted, setHaveStarted] = useState<boolean>(false)
 
-  // const [hamsters, setHamsters] = useRecoilState(AtomHamster)
-  // const [error, setError] = useState<any>(null)
-  // const [haveStarted, setHaveStarted] = useState<boolean>(false)
-
-  // const getData: () => Promise<void> = async () => {
-  //   fetch(fixUrl(`/hamsters`))
-  //     .then((res) => res.json())
-  //     .then(
-  //       (result) => {
-  //         setError(null)
-  //         setHamsters(result)
-  //       },
-  //       (error) => {
-  //         setError(error)
-  //       }
-  //     )
-  //   setHaveStarted(true)
-  // }
+  const getData: () => Promise<void> = async () => {
+    console.log('App.tsx');
+    fetch(fixUrl(`/hamsters`))
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setError(null)
+          setHamsters(result)
+        },
+        (error) => {
+          setError(error)
+        }
+      )
+    setHaveStarted(true)
+  }
   
 
-  // useEffect(() => {
-  //   getData()
-  // }, [haveStarted])
-    
+  useEffect(() => {
+    getData()
+  }, [haveStarted])
 
   return (
     <div className="App">

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useRecoilValue } from 'recoil'
+import { useRecoilState } from 'recoil'
 import { Hamster } from '../models/Hamster'
 import { fixUrl } from '../utils'
 import AtomHamster from '../Atoms/AtomHamster'
@@ -25,7 +25,7 @@ const Galleri = () => {
   const [imgName, setImgName] = useState<string>('')
   const [enableInfo, setEnableInfo] = useState<boolean>(false)
   const [info, setInfo] = useState<InfoObject | null>(null)
-  const hamsters = useRecoilValue(AtomHamster)
+  const [hamsters, setHamsters] = useRecoilState(AtomHamster)
   
 
     const openInfo = () => {

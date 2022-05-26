@@ -237,6 +237,7 @@ const Compete = () => {
               <p className='info-text'>{firstWinner.games} matcher spelade</p>
               <p className='info-text'>{firstWinner.wins} matcher vunna </p>
               <p className='info-text'>{firstWinner.defeats} matcher förlorade</p>
+              <button onClick={getBothHamsters} className="front-page-btn">Next fight!!</button>
             </div>
               )}
           </div>
@@ -257,6 +258,7 @@ const Compete = () => {
               <p className='info-text'>{secondWinner.games} matcher spelade</p>
               <p className='info-text'>{secondWinner.wins} matcher vunna </p>
               <p className='info-text'>{secondWinner.defeats} matcher förlorade</p>
+              <button onClick={getBothHamsters} className="front-page-btn">Next fight!!</button>
             </div>
             )}
           </div>

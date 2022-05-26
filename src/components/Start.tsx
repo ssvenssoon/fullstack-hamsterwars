@@ -16,41 +16,42 @@ interface TemporaryObject {
 }
 
 const Start = () => {
-    const hamsters = useRecoilValue(AtomHamster)
-    const [bestHamster, setBestHamster] = useState<TemporaryObject | null>(null)
-    const [haveStarted, setHaveStarted] = useState<boolean>(false)
-
-    const getData = () => {
-        let score: any[] = []
-
+  const [hamsters, setHamsters] = useRecoilState(AtomHamster)
+  const [bestHamster, setBestHamster] = useState<TemporaryObject | null>(null)
+  const [haveStarted, setHaveStarted] = useState<boolean>(false)
+  
+  const getLeadingHamster = () => {
+    let score: any[] = []
+    
         hamsters.forEach((item) => {
-      
-        const sum = Number(item.wins) - Number(item.defeats)
-        return score.push({ ...item, sum: sum })
+          const sum = Number(item.wins) - Number(item.defeats)
+          return score.push({ ...item, sum: sum })
       })
 
       let heighestValue = Math.max.apply(
         Math,
         score.map((o) => o.sum)
-      )
+        )
       //Get best hamster
       let bestHamsters = score.filter((i) => i.sum === heighestValue)
 
       const best = bestHamsters.filter((i) => delete i.sum)
 
       const randomHamster = best[Math.floor((Math.random()*best.length))]
-    
+      
       if(typeof randomHamster !== 'undefined') {
-        return setBestHamster(randomHamster)
+        console.log(randomHamster);
+        
+        setBestHamster(randomHamster)
+        setHaveStarted(true)
       }
-      setHaveStarted(true)
     }
 
-    useEffect(() => {
-      getData()
-    }, [haveStarted])
+    const closeLeadingHamster = () => {
+      setHaveStarted(false)
+    }
     
-
+    
       function fixImgSrcPath(image: string) {
         if(image !== undefined) {
           if (image.startsWith('https')) {
@@ -85,8 +86,12 @@ const Start = () => {
             MEN är det så att fler än en hamster ligger på första plats så slumpmässas dessa hamstrar.
           </p>
         </div>
+        { haveStarted 
+           ? <button onClick={closeLeadingHamster} className='front-page-btn'>Close leading hamster</button>
+           : <button onClick={getLeadingHamster} className='front-page-btn'>Load leading hamster</button>
+        }
         <div className='hamster-container'>
-          {bestHamster && 
+          {bestHamster && haveStarted &&
           <div className='hamster-front-page'>
             <h3>GRATTIS till {bestHamster.name} som just nu <br /> ligger på första plats! 🏆</h3>
             <p>Jag är {bestHamster.age} år gammal <br />
@@ -99,11 +104,6 @@ const Start = () => {
           </div>
           }
         </div>
-          {/* <ul>
-            {hamsters.map((hamster) => (
-              <li key={hamster.name}>{hamster.wins}</li>
-              ))}
-          </ul> */}
       </div>
     )
 }
