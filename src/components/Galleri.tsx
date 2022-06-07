@@ -13,8 +13,12 @@ interface InfoObject {
   hamsterId: string;
 }
 
+interface Props {
+  setHaveBeenAdded: (value: boolean) => void
+}
 
-const Galleri = () => {
+
+const Galleri = ({ setHaveBeenAdded }: Props) => {
   const [name, setName] = useState<string>('')
   const [food, setFood] = useState<string>('')
   const [loves, setLoves] = useState<string>('')
@@ -26,6 +30,11 @@ const Galleri = () => {
   const [enableInfo, setEnableInfo] = useState<boolean>(false)
   const [info, setInfo] = useState<InfoObject | null>(null)
   const [hamsters, setHamsters] = useRecoilState(AtomHamster)
+  const [error, setError] = useState<any>(null)
+  const [success, setSuccess] = useState<boolean>(false)
+  const [addHamster, SetAddHamster] = useState<boolean>(false)
+  
+  
   
 
     const openInfo = () => {
@@ -34,6 +43,12 @@ const Galleri = () => {
 
     const closeInfo = () => {
       setEnableInfo(false)
+      setError(null)
+    }
+
+    const closeSuccess = () => {
+      setSuccess(false)
+      SetAddHamster(false)
     }
 
 
@@ -90,6 +105,8 @@ const Galleri = () => {
         },
         body: JSON.stringify(addedHamster)
       })
+      setHaveBeenAdded(true)
+      SetAddHamster(true)
     }
     
     const handleClick = (name: any, age: any, loves: any, wins: any, defeats: any, id: any) => {
@@ -117,9 +134,20 @@ const Galleri = () => {
           'Content-Type': 'application/json'
         }
       })
+      .catch(err => setError(err))
+      
+      let deletedHamster = id
+      let newHamsters = hamsters?.filter(
+        (hamster) => hamster.id !== deletedHamster
+      )
+      
+      setHamsters(newHamsters)
       setEnableInfo(false)
+      if(error === null) {
+        setSuccess(true)
+      }
     }
-    
+
     return (
       <div >
         { info && (
@@ -143,6 +171,40 @@ const Galleri = () => {
           </button>
         </div>
         )}
+        { success && error === null &&
+        
+          <div className={success ? 'info-container' : 'closed-info-container'}>
+            <button
+             className='close-info'
+             onClick={closeSuccess}
+            >
+             x
+            </button>
+            <p className='info-text'>Du tog bort hamstern</p>
+          </div>
+        }
+        { addHamster &&
+          <div className={addHamster ? 'info-container' : 'closed-info-container'}>
+            <button
+             className='close-info'
+             onClick={closeSuccess}
+            >
+             x
+            </button>
+            <p className='info-text'>Du lade till en hamstern</p>
+          </div>
+        }
+        { error !== null &&
+        <div className='info-container'>
+          <button
+           className='close-info'
+           onClick={closeInfo}
+           >
+             x
+          </button>
+          <p>Tyvärr kunde vi inte lägga till hamstern. Klicka på kryss och försök igen</p>
+        </div>
+        }
         <div className='hamster-container' onClick={openInfo}>
           {hamsters ? (
             hamsters.map((hamster) => (
@@ -151,7 +213,7 @@ const Galleri = () => {
                 id={hamster.id}
                 onClick={() => 
                   handleClick(hamster.name, hamster.age, hamster.loves, hamster.wins, hamster.defeats, hamster.id)} 
-                  key={hamster.name}>
+                  key={hamster.id}>
                 <h3 className='hamster-name'>{hamster.name}</h3>
                 <img className='hamsters-img' src={fixImgSrcPath(hamster.imgName)}  />
               </li>

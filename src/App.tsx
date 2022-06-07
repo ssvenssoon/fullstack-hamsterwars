@@ -17,6 +17,7 @@ function App() {
   const [hamsters, setHamsters] = useRecoilState(AtomHamster)
   const [error, setError] = useState<any>(null)
   const [haveStarted, setHaveStarted] = useState<boolean>(false)
+  const [haveBeenAdded, setHaveBeenAdded] = useState<boolean>(false)
 
   const getData: () => Promise<void> = async () => {
     console.log('App.tsx');
@@ -32,12 +33,17 @@ function App() {
         }
       )
     setHaveStarted(true)
+    setHaveBeenAdded(false)
   }
   
 
   useEffect(() => {
     getData()
   }, [haveStarted])
+
+  useEffect(() => {
+    getData()
+  }, [haveBeenAdded])
 
   return (
     <div className="App">
@@ -50,7 +56,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Start error={error}/>} ></Route>
           <Route path='/compete' element={<Compete />}></Route>
-          <Route path='/galleri' element={<Galleri />}></Route>
+          <Route path='/galleri' element={<Galleri setHaveBeenAdded={setHaveBeenAdded} />}></Route>
         </Routes>
       </main>
     </div>
