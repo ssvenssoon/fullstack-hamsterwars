@@ -12,7 +12,7 @@ import hamsters from './routes/hamster.js'
 
 // console.log('Log ' + __dirname);
 
-const staticFolder = path.join(__dirname, '/../backend/dist/')
+const staticFolder = path.join(__dirname, '/../dist/')
 
 const staticImages = path.join(__dirname, '/public/img/')
 
