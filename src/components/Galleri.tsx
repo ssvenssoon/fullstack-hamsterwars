@@ -164,7 +164,7 @@ const Galleri = ({ setHaveBeenAdded }: Props) => {
           <p className='info-text'>Jag har vunnit {info.hamsterWins} gånger</p>
           <p className='info-text'>Jag har förlorat {info.hamsterDefeats} gånger</p>
           <button
-            className='close-info'
+            className='close-button'
             onClick={() => deleteHamster(info.hamsterId)}
             >
                Delete me
@@ -191,7 +191,7 @@ const Galleri = ({ setHaveBeenAdded }: Props) => {
             >
              x
             </button>
-            <p className='info-text'>Du lade till en hamstern</p>
+            <p className='success'>Du lade till en hamstern</p>
           </div>
         }
         { error !== null &&
