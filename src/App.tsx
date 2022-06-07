@@ -49,7 +49,7 @@ function App() {
     <div className="App">
       <nav>
         <Link className='nav-link' to="/"> Startsida </Link>
-        <Link className='nav-link' to="/compete"> Compete </Link>
+        <Link className='nav-link' to="/compete"> Tävla </Link>
         <Link className='nav-link' to="/galleri"> Galleri </Link>
       </nav>
       <main>
